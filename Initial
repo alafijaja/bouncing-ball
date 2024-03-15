@@ -1,0 +1,44 @@
+from tkinter import *
+import time
+import random
+
+root = Tk()
+root.title("Bouncing Ball")
+root.geometry("500x570")
+root.resizable(0, 0)
+root.wm_attributes("-topmost", 1)
+
+canvas = Canvas(root, width=500, height=500, bd=0, highlightthickness=0, highlightbackground="Red", bg="Black")
+canvas.pack(padx=10, pady=10)
+
+score = Label(height=50, width=80, text="Score: 00", font="Consolas 14 bold")
+score.pack(side="left")
+root.update()
+
+class Ball:
+    def __init__(self, canvas, color, paddle, bricks, score):
+        self.bricks = bricks
+        self.canvas = canvas
+        self.paddle = paddle
+        self.score = score
+        self.bottom_hit = False
+        self.hit = 0
+        self.id = canvas.create_oval(10, 10, 25, 25, fill=color, width=1)
+        self.canvas.move(self.id, 230, 461)
+        start = [4, 3.8, 3.6, 3.4, 3.2, 3, 2.8, 2.6]
+        random.shuffle(start)
+        self.x = start[0]
+        self.y = -start[0]
+        self.canvas.move(self.id, self.x, self.y)
+        self.canvas_height = canvas.winfo_height()
+        self.canvas_width = canvas.winfo_width()
+
+    # Other methods (brick_hit, paddle_hit, draw) go here...
+
+# Create a paddle and bricks (not shown in this snippet)
+# Initialize the ball
+ball = Ball(canvas, 'green', paddle, bricks, score)
+
+# Main game loop (not shown in this snippet)
+
+root.mainloop()
